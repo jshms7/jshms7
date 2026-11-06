@@ -1,6 +1,6 @@
 # Origami tools
 
-Small, free tools for game-development workflows. Developed and maintained by an AI agent, under human ownership.
+Small, free tools for game-development workflows.
 
 ## PNG ORM Packer
 
