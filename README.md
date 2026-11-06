@@ -1,39 +1,35 @@
 # Origami tools
 
-Small, free tools for game-development workflows.
+Small, free tools for game-development workflows. Both run locally without a tool account or upload service.
 
-## PNG ORM Packer
+## Animation Segment Transfer for Godot
 
-**Combine AO, roughness and metallic masks in your browser.** Match the filenames, review the sets, and download one ORM PNG per material in a ZIP. Your input files are processed in the page, not uploaded to a conversion service.
+**Merge selected scalar property keys between animation clips without copying whole tracks.** Preview the exact paths and inclusive range, keep the original times, and use Godot's normal Undo/Redo. Collisions are refused rather than overwriting destination keys.
 
-[Open the browser tool](https://jshms7.github.io/png-orm-packer/texture-batch.html) · [Download v0.1.0 and examples](https://github.com/jshms7/png-orm-packer/releases/tag/v0.1.0) · [Source and full limits](https://github.com/jshms7/png-orm-packer)
+[Download the add-on or runnable demo](https://github.com/jshms7/animation-segment-transfer/releases/tag/v0.1.0) · [Instructions and full limits](https://github.com/jshms7/animation-segment-transfer)
 
-### Try it in three steps
+1. Extract the demo ZIP and open `project.godot` in Godot 4.7.2. For an existing project, install the add-on ZIP and enable the plugin instead.
+2. Select an AnimationPlayer, choose source and destination clips, check tracks and set the range. Click **Preview**.
+3. Click **Transfer**, inspect the destination timeline, then undo or save. The README includes a three-key worked example.
 
-1. Download and extract `png-orm-packer.zip` from the release. Open `texture-batch.html` in a recent desktop browser.
-2. Choose the six PNGs in `examples/` using **Choose individual files**. The page should list two ready sets: `stone` and `wood`.
-3. Click **Pack ready sets**, then **Download packed ZIP**. The ZIP contains `stone_orm.png`, `wood_orm.png` and a text report.
+![Segment Transfer's three-key preview in Godot.](https://raw.githubusercontent.com/jshms7/animation-segment-transfer/bcd247f551076c88696cc7810923e55f6f04a342/docs/images/three-key-preview.png)
 
-![The public browser tool packs the six bundled example masks into two ORM textures, with no failed sets.](texture-two-sets.png)
+Supports bool, int and float Value tracks in independent local scene-embedded clips. No vectors, transforms, imported clips, retiming or path remapping. Tested in Godot 4.7.2 on Linux. MIT licensed; offline, no telemetry.
 
-*Actual browser demonstration using the included synthetic examples. This is our test, not a customer result.*
+## PNG ORM Packer v0.2
 
-### Use your own masks
+**Batch ambient occlusion, roughness and metallic masks into exact numeric ORM PNGs.** Review filenames and exceptions, then download one image per successful material plus a text report. Failed sets leave Ready; correct the files and select them again to retry.
 
-Name each set consistently, for example:
+[Open the browser tool](https://jshms7.github.io/png-orm-packer/texture-batch.html) · [Download v0.2.0 and examples](https://github.com/jshms7/png-orm-packer/releases/tag/v0.2.0) · [Source and full limits](https://github.com/jshms7/png-orm-packer#format-and-batch-limits)
 
-```text
-stone_ao.png
-stone_roughness.png
-stone_metallic.png
-```
+1. Extract `png-orm-packer.zip` and open `texture-batch.html` in desktop Chrome or Firefox.
+2. Choose all six files in `examples/`, review the two sets, then click **Pack ready sets**.
+3. Click **Download packed ZIP**. It contains `stone_orm.png`, `wood_orm.png` and the report.
 
-The output is `stone_orm.png`: **R = AO, G = roughness, B = metallic, A = 255**. Each value comes from the red channel of its input. Optional roughness inversion uses `255 - input`; leave it off for ordinary roughness masks.
+![PNG ORM Packer with a real CC0 material prepared as 8-bit PNG.](https://raw.githubusercontent.com/jshms7/png-orm-packer/f7d9fd24b5e215a78544bd29d0e78340d1d74999/screenshot.png)
 
-### Before you start
+Output: **R = AO, G = roughness, B = metallic, A = 255**. Each value comes from its input's red channel; optional inversion uses `255 - roughness`. No colour correction, resizing or source-file changes.
 
-- Use individual-file selection. The three masks must have matching dimensions.
-- Supports 8-bit, non-interlaced grayscale, RGB, grayscale-alpha and RGBA PNGs. No palette, 16-bit or animated PNGs, and no resizing.
-- Maximum 4096 × 4096 and 32 MiB per input, with batch and output limits. Large noisy images can still exceed the encoder limit. Start with a small batch; see the [complete limits](https://github.com/jshms7/png-orm-packer#limits).
-- This is a standalone browser tool, not an engine plugin. Check the required channel layout and texture-import settings for your material.
-- The source is available under the Unlicense. No payment, tool account or product API key is required. GitHub hosts this page and the downloads; its own privacy terms apply to visits.
+Supports matching 8-bit, non-interlaced grayscale/RGB/grayscale-alpha/RGBA PNGs. Palette, 16-bit and animated PNGs are refused. Per input: up to 4096 × 4096 pixels and 32 MiB; selection/output/browser-memory limits also apply. Full limits and hosting privacy details are in the README. Unlicense; no installation or tracking in the local tool.
+
+Screenshots show our own checks, not customer results. The texture screenshot uses a separately prepared [CC0 Poly Haven material](https://polyhaven.com/a/metal_plate), not bundled customer files. GitHub's own privacy terms apply to hosted pages and downloads.
